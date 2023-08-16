@@ -1,61 +1,78 @@
 # K6
-Getting Started with K6
+This repository was created for basic/intermediate learning of using K6.
 
-# User API
+## 💻 Pre-requisites
 
-## 🔖 Requisitos funcionais
+1. [Node.js](https://nodejs.org/) JS v16 or higher for API usage
+2. [K6 Installation](https://k6.io/docs/get-started/installation/)
+3. [MongoDB](https://cloud.mongodb.com/) for API usage - 
 
-### Cadastro
+> **_MongoDB NOTE:_** 
+1. Create a project
+2. Create an user and password
+3. Update the MONGO_URL in api/src/.env file => mongodb+srv://USER:PASSWORD@cluster0.3yi5vct.mongodb.net/UserDB?retryWrites=true&w=majority
 
-- [X] Deve retornar os id ao cadastrar um novo usuário
-- [X] Deve retornar 201 ao cadastrar um novo usuário
-- [X] Deve retornar 400 ao tentar cadastrar sem email e senha
-- [X] Deve retornar 400 se o email for duplicado
+
+## User API
+
+## 🔖 Functional requirements
+
+### Registration
+
+- [X] Should return the IDs when registering a new user
+- [X] Should return 201 when registering a new user
+- [X] Should return 400 when trying to register without email and password
+- [X] Should return 400 if the email is duplicated
 
 | campos   | descrição                             | tipo     | obrigatório |
 | :-----   | :------------------------------------ | :------- | :---------- |
-| email    | usuário identificador único           | email    | sim         |
-| password | senha do usuário                      | texto    | sim         |
+| email    | unique user identifier                | email    | yes         |
+| password | user's password                       | text     | yes         |
 
-## 🔖 Requisitos não funcionais
+## 🔖 Non-functional Requirements
 
-### Cadastro
+### Registration
 
-- [ ] O cadastro com sucesso deve ocorrer em até 2 segundos
-- [ ] Cadastros sem sucesso devem ocorrer em até 2 segundos
-- [ ] Deve poder cadastrar até 100 usuários simultâneos
-- [ ] A margem de erro no cadastro deve ser de pelo menos 1%
+- [ ] Successful registration should occur within 2 seconds
+- [ ] Unsuccessful registrations should occur within 2 seconds
+- [ ] Up to 100 simultaneous user registrations should be supported
+- [ ] The error margin in registration should be at least 1%
 
 ## 🚀 Tecnologias
 
-- [Node.js] - plataforma de desenvolvimento
-- [Express] - framework onde a API foi construída
-- [MongoDB] - Banco de dados (Não relacional)
-- [k6] - ferramenta para teste de carga, performance, stress etc...
+- [Node.js] - development platform
+- [Express] - framework where the API was built
+- [MongoDB] - Database (Non-relational)
 
-## 👨🏻‍💻 Como executar o projeto
+## 👨🏻‍💻 How to run the project (API)
 
-[Node.js](https://nodejs.org/) v16 ou superior para executar.
-
-Para liberar o gerenciador de pacotes Yarn:
-
-```
-corepack enable
-```
-
-Execute os comandos abaixo para instalar das dependências do projeto:
+Execute the following commands to install the project's dependencies:
 
 ```sh
-cd /api
+cd api
 yarn install
 yarn dev
 ```
+## 👨🏻‍💻 How to run the K6 test
 
-## 📝 License
+Run k6 with the following command:
+```sh
+k6 run script.js
+```
+
+Now run a load test with more than one virtual user and a longer duration:
+```sh
+k6 run --vus 10 --duration 30s script.js
+```
+Running a 30-second, 10-VU load test
+
+---
+
+# 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-Feito com 💜 por Fernando Papito 👋 [Meu linkedin](https://www.linkedin.com/in/papitoio/)
-Repositório oficial: https://github.com/weareqacademy/curso-k6-basico
+# Reference
+Official repository: https://github.com/weareqacademy/curso-k6-basico
