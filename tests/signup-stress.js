@@ -4,18 +4,18 @@ import uuid from "./libs/uuid.js";
 
 export const options = {
   stages: [
-    { duration: "5m", target: 200 }, // ramp-up de 1 a 200 users em 5 minutos
-    { duration: "15m", target: 200 }, //mantem 200 usuarios for 15 minutos
-    { duration: "3m", target: 0 }, // ramp-down para 0 usuarios
+    { duration: "5m", target: 200 }, //ramp-up from 1 to 200 users in 5 minutes
+    { duration: "15m", target: 200 }, //keep 200 users for 15 minutes
+    { duration: "3m", target: 0 }, //ramp-down to 0 users
   ],
   thresholds: {
-    //regra de configuracao de limite
-    http_req_duration: ["p(95)<2000"], //95% das requisicoes devem responder em ate 2s
-    http_req_failed: ["rate<0.01"], //1% das requisicoes podem ocorrer erro
+    //threshold setting rule
+    http_req_duration: ["p(95)<2000"], //95% of requests must be answered within 2s
+    http_req_failed: ["rate<0.01"], //1% of requests may have an error
   },
 };
 
-export default function () {
+export default () => {
   const url = "http://localhost:3333/signup";
   const paylod = JSON.stringify({
     email: `${uuid.v4().substring(24)}@qatest.com`,
