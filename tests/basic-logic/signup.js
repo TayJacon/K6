@@ -1,9 +1,9 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import uuid from "./libs/uuid.js";
+import uuid from "../libs/uuid.js";
 
 export const options = {
-  vus: 1,
+  vus: 10,
   duration: "30s",
   thresholds: {
     //threshold setting rule
@@ -30,4 +30,4 @@ export default () => {
   });
 
   sleep(1);
-};
+}

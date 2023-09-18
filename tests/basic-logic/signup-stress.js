@@ -1,10 +1,13 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import uuid from "./libs/uuid.js";
+import uuid from "../libs/uuid.js";
 
 export const options = {
-  vus: 10,
-  duration: "30s",
+  stages: [
+    { duration: "5m", target: 200 }, //ramp-up from 1 to 200 users in 5 minutes
+    { duration: "15m", target: 200 }, //keep 200 users for 15 minutes
+    { duration: "3m", target: 0 }, //ramp-down to 0 users
+  ],
   thresholds: {
     //threshold setting rule
     http_req_duration: ["p(95)<2000"], //95% of requests must be answered within 2s

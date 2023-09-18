@@ -1,12 +1,22 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import uuid from "./libs/uuid.js";
+import uuid from "../libs/uuid.js";
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+
+let date = new Date();
+date = date.toISOString().split("T")[0];
+
+export const handleSummary = (data) => {
+  return {
+    [`summary-${date}.html`]: htmlReport(data),
+  };
+};
 
 export const options = {
   stages: [
-    { duration: "5m", target: 200 }, //ramp-up from 1 to 200 users in 5 minutes
-    { duration: "15m", target: 200 }, //keep 200 users for 15 minutes
-    { duration: "3m", target: 0 }, //ramp-down to 0 users
+    { duration: "1m", target: 100 },
+    { duration: "2m", target: 100 },
+    { duration: "1m", target: 0 },
   ],
   thresholds: {
     //threshold setting rule
@@ -33,4 +43,4 @@ export default () => {
   });
 
   sleep(1);
-}
+};

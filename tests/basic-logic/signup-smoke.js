@@ -1,23 +1,10 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import uuid from "./libs/uuid.js";
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
-
-let date = new Date();
-date = date.toISOString().split("T")[0];
-
-export const handleSummary = (data) => {
-  return {
-    [`summary-${date}.html`]: htmlReport(data),
-  };
-};
+import uuid from "../libs/uuid.js";
 
 export const options = {
-  stages: [
-    { duration: "1m", target: 100 },
-    { duration: "2m", target: 100 },
-    { duration: "1m", target: 0 },
-  ],
+  vus: 1,
+  duration: "30s",
   thresholds: {
     //threshold setting rule
     http_req_duration: ["p(95)<2000"], //95% of requests must be answered within 2s
